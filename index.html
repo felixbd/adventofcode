@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-16 Sa 20:52 -->
+<!-- 2023-12-16 Sa 20:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>[[https://adventofcode.com/][adventofcode.com]]</title>
@@ -58,23 +58,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org274ac0e">Day 1</a>
+<li><a href="#orgd45e3f6">Day 1</a>
 <ul>
-<li><a href="#orgcc126de">puzzle 1 <code>Python3</code></a></li>
-<li><a href="#orgef71395">puzzle 2 <code>Shell</code></a></li>
+<li><a href="#org20b35a0">puzzle 1 <code>Python3</code></a></li>
+<li><a href="#org8ca3c36">puzzle 2 <code>Shell</code></a></li>
 </ul>
 </li>
-<li><a href="#orgad7c477"><span class="todo TODO">TODO</span> Day 2</a></li>
+<li><a href="#org7dffd8f"><span class="todo TODO">TODO</span> Day 2</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org274ac0e" class="outline-2">
-<h2 id="org274ac0e"><a href="https://adventofcode.com/2023/day/1">Day 1</a></h2>
-<div class="outline-text-2" id="text-org274ac0e">
+<div id="outline-container-orgd45e3f6" class="outline-2">
+<h2 id="orgd45e3f6"><a href="https://adventofcode.com/2023/day/1">Day 1</a></h2>
+<div class="outline-text-2" id="text-orgd45e3f6">
 </div>
-<div id="outline-container-orgcc126de" class="outline-3">
-<h3 id="orgcc126de">puzzle 1 <code>Python3</code></h3>
-<div class="outline-text-3" id="text-orgcc126de">
+<div id="outline-container-org20b35a0" class="outline-3">
+<h3 id="org20b35a0">puzzle 1 <code>Python3</code></h3>
+<div class="outline-text-3" id="text-org20b35a0">
 <blockquote>
 <p>
 The newly-improved calibration document consists of lines of text; each line originally contained a specific calibration value that the Elves now need to recover.
@@ -106,7 +106,7 @@ Consider your entire calibration document. What is the sum of all of the calibra
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="org5271a13"><span style="color: #dcaeea;">data</span> = <span style="color: #98be65;">"""</span>
+<pre class="src src-python" id="org309cb63"><span style="color: #dcaeea;">data</span> = <span style="color: #98be65;">"""</span>
 <span style="color: #98be65;">1abc2</span>
 <span style="color: #98be65;">pqr3stu8vwx</span>
 <span style="color: #98be65;">a1b2c3d4e5f</span>
@@ -119,7 +119,7 @@ Consider your entire calibration document. What is the sum of all of the calibra
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="orga86a812"><span style="color: #51afef;">def</span> <span style="color: #c678dd;">day1</span>(data: <span style="color: #c678dd;">str</span> = data) -&gt; <span style="color: #c678dd;">int</span>:
+<pre class="src src-python" id="orgffb54ef"><span style="color: #51afef;">def</span> <span style="color: #c678dd;">day1</span>(data: <span style="color: #c678dd;">str</span> = data) -&gt; <span style="color: #c678dd;">int</span>:
     <span style="color: #83898d;">"""</span>
 <span style="color: #83898d;">    sum(list(map(lambda xs: int(xs[0] + xs[-1]),</span>
 <span style="color: #83898d;">                 map(lambda x: list(filter(lambda e: e.isdigit(), x)),</span>
@@ -144,9 +144,9 @@ Consider your entire calibration document. What is the sum of all of the calibra
 </pre>
 </div>
 </div>
-<div id="outline-container-orgef71395" class="outline-3">
-<h3 id="orgef71395">puzzle 2 <code>Shell</code></h3>
-<div class="outline-text-3" id="text-orgef71395">
+<div id="outline-container-org8ca3c36" class="outline-3">
+<h3 id="org8ca3c36">puzzle 2 <code>Shell</code></h3>
+<div class="outline-text-3" id="text-org8ca3c36">
 <blockquote>
 <p>
 Your calculation isn&rsquo;t quite right. It looks like some of the digits are actually spelled out with letters: one, two, three, four, five, six, seven, eight, and nine also count as valid &ldquo;digits&rdquo;.
@@ -176,8 +176,7 @@ What is the sum of all of the calibration values?
 </blockquote>
 
 <div class="org-src-container">
-<pre class="src src-shell" id="org56da568"><span style="color: #ECBE7B;">echo</span> -e <span style="color: #98be65;">"</span>
-<span style="color: #98be65;">two1nine</span>
+<pre class="src src-shell" id="org3f04581"><span style="color: #ECBE7B;">echo</span> -e <span style="color: #98be65;">"two1nine</span>
 <span style="color: #98be65;">eightwothree</span>
 <span style="color: #98be65;">abcone2threexyz</span>
 <span style="color: #98be65;">xtwone3four</span>
@@ -191,7 +190,6 @@ What is the sum of all of the calibration values?
 </div>
 
 <pre class="example">
-
 two2two1nine9nine
 eight8eightwo2twothree3three
 abcone1one2three3threexyz
@@ -250,9 +248,9 @@ as expected.
 </div>
 </div>
 </div>
-<div id="outline-container-orgad7c477" class="outline-2">
-<h2 id="orgad7c477"><span class="todo TODO">TODO</span> Day 2</h2>
-<div class="outline-text-2" id="text-orgad7c477">
+<div id="outline-container-org7dffd8f" class="outline-2">
+<h2 id="org7dffd8f"><span class="todo TODO">TODO</span> Day 2</h2>
+<div class="outline-text-2" id="text-org7dffd8f">
 <p>
 bal bal bal
 </p>
@@ -261,7 +259,7 @@ bal bal bal
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Felix Drees</p>
-<p class="date">Created: 2023-12-16 Sa 20:52</p>
+<p class="date">Created: 2023-12-16 Sa 20:57</p>
 </div>
 </body>
 </html>
