@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-12-16 Sa 20:52 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[[https://adventofcode.com/][adventofcode.com]]</title>
+<meta name="author" content="Felix Drees" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title"><a href="https://adventofcode.com/">adventofcode.com</a>
+<br />
+<span class="subtitle">2023</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org274ac0e">Day 1</a>
+<ul>
+<li><a href="#orgcc126de">puzzle 1 <code>Python3</code></a></li>
+<li><a href="#orgef71395">puzzle 2 <code>Shell</code></a></li>
+</ul>
+</li>
+<li><a href="#orgad7c477"><span class="todo TODO">TODO</span> Day 2</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org274ac0e" class="outline-2">
+<h2 id="org274ac0e"><a href="https://adventofcode.com/2023/day/1">Day 1</a></h2>
+<div class="outline-text-2" id="text-org274ac0e">
+</div>
+<div id="outline-container-orgcc126de" class="outline-3">
+<h3 id="orgcc126de">puzzle 1 <code>Python3</code></h3>
+<div class="outline-text-3" id="text-orgcc126de">
+<blockquote>
+<p>
+The newly-improved calibration document consists of lines of text; each line originally contained a specific calibration value that the Elves now need to recover.
+</p>
+
+<p>
+On each line, the calibration value can be found by combining the first digit and the last digit (in that order) to form a single two-digit number.
+</p>
+
+<p>
+For example:
+</p>
+
+<p>
+1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet
+</p>
+
+<p>
+In this example, the calibration values of these four lines are 12, 38, 15, and 77. Adding these together produces 142.
+</p>
+
+<p>
+Consider your entire calibration document. What is the sum of all of the calibration values?
+</p>
+</blockquote>
+
+
+<div class="org-src-container">
+<pre class="src src-python" id="org5271a13"><span style="color: #dcaeea;">data</span> = <span style="color: #98be65;">"""</span>
+<span style="color: #98be65;">1abc2</span>
+<span style="color: #98be65;">pqr3stu8vwx</span>
+<span style="color: #98be65;">a1b2c3d4e5f</span>
+<span style="color: #98be65;">treb7uchet</span>
+<span style="color: #98be65;">"""</span>
+
+<span style="color: #51afef;">return</span> data[<span style="color: #da8548; font-weight: bold;">1</span>:]
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-python" id="orga86a812"><span style="color: #51afef;">def</span> <span style="color: #c678dd;">day1</span>(data: <span style="color: #c678dd;">str</span> = data) -&gt; <span style="color: #c678dd;">int</span>:
+    <span style="color: #83898d;">"""</span>
+<span style="color: #83898d;">    sum(list(map(lambda xs: int(xs[0] + xs[-1]),</span>
+<span style="color: #83898d;">                 map(lambda x: list(filter(lambda e: e.isdigit(), x)),</span>
+<span style="color: #83898d;">                     data.split())</span>
+<span style="color: #83898d;">    )))</span>
+<span style="color: #83898d;">    """</span>
+    <span style="color: #51afef;">return</span> <span style="color: #c678dd;">sum</span>(
+        [<span style="color: #c678dd;">int</span>(xs[<span style="color: #da8548; font-weight: bold;">0</span>] + xs[-<span style="color: #da8548; font-weight: bold;">1</span>])
+         <span style="color: #51afef;">for</span> xs <span style="color: #51afef;">in</span>
+         [[x <span style="color: #51afef;">for</span> x <span style="color: #51afef;">in</span> ys <span style="color: #51afef;">if</span> x.isdigit()]
+          <span style="color: #51afef;">for</span> ys <span style="color: #51afef;">in</span>
+          data.split()]]
+        )
+
+
+<span style="color: #c678dd;">print</span>(day1())
+</pre>
+</div>
+
+<pre class="example">
+142
+</pre>
+</div>
+</div>
+<div id="outline-container-orgef71395" class="outline-3">
+<h3 id="orgef71395">puzzle 2 <code>Shell</code></h3>
+<div class="outline-text-3" id="text-orgef71395">
+<blockquote>
+<p>
+Your calculation isn&rsquo;t quite right. It looks like some of the digits are actually spelled out with letters: one, two, three, four, five, six, seven, eight, and nine also count as valid &ldquo;digits&rdquo;.
+</p>
+
+<p>
+Equipped with this new information, you now need to find the real first and last digit on each line. For example:
+</p>
+
+<p>
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen
+</p>
+
+<p>
+In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
+</p>
+
+<p>
+What is the sum of all of the calibration values?
+</p>
+</blockquote>
+
+<div class="org-src-container">
+<pre class="src src-shell" id="org56da568"><span style="color: #ECBE7B;">echo</span> -e <span style="color: #98be65;">"</span>
+<span style="color: #98be65;">two1nine</span>
+<span style="color: #98be65;">eightwothree</span>
+<span style="color: #98be65;">abcone2threexyz</span>
+<span style="color: #98be65;">xtwone3four</span>
+<span style="color: #98be65;">4nineeightseven2</span>
+<span style="color: #98be65;">zoneight234</span>
+<span style="color: #98be65;">7pqrstsixteen"</span> | <span style="color: #98be65;">\</span>
+    sd one one1one       | sd two two2two       | sd three three3three | <span style="color: #98be65;">\</span>
+    sd four four4four    | sd five five5five    | sd six six6six       | <span style="color: #98be65;">\</span>
+    sd seven seven7seven | sd eight eight8eight | sd nine nine9nine
+</pre>
+</div>
+
+<pre class="example">
+
+two2two1nine9nine
+eight8eightwo2twothree3three
+abcone1one2three3threexyz
+xtwo2twone1one3four4four
+4nine9nineeight8eightseven7seven2
+zone1oneight8eight234
+7pqrstsix6sixteen
+</pre>
+
+
+
+
+<p>
+<b><b>Note</b></b>:
+Why can&rsquo;t we just replace <code>one</code> with <code>1</code>?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ECBE7B;">echo</span> <span style="color: #98be65;">"eightwo"</span> | sd two <span style="color: #da8548; font-weight: bold;">2</span> | sd eight <span style="color: #da8548; font-weight: bold;">8</span>
+</pre>
+</div>
+
+<pre class="example">
+eigh2
+</pre>
+
+
+<p>
+If we do so, we will have problems with words, in which the numbers are intertwined.
+e.g., <code>eightwo</code>
+</p>
+
+<p>
+\[ \overbrace{ \texttt{eight}  }^8 \texttt{wo} \]  and  \[ \texttt{eigh} \underbrace{ \texttt{two} }_2 \]
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ECBE7B;">echo</span> <span style="color: #98be65;">"eightwo"</span> | sd two two2two | sd eight eight8eight | <span style="color: #98be65;">\</span>
+    python3 -c <span style="color: #98be65;">"import sys; xs: str = sys.stdin.read(); \</span>
+<span style="color: #98be65;">                print(f'{xs} -&gt; {[x for x in xs if x.isdigit()]}')"</span>
+</pre>
+</div>
+
+<p>
+eight8eightwo2two
+ -&gt; [&rsquo;8&rsquo;, &rsquo;2&rsquo;]
+</p>
+
+
+<p>
+If we now aply the <code>day1 :: String -&gt; Int</code> function form above to the normalized / cleaned  data, we will receive
+<code>281</code>,
+as expected.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgad7c477" class="outline-2">
+<h2 id="orgad7c477"><span class="todo TODO">TODO</span> Day 2</h2>
+<div class="outline-text-2" id="text-orgad7c477">
+<p>
+bal bal bal
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Felix Drees</p>
+<p class="date">Created: 2023-12-16 Sa 20:52</p>
+</div>
+</body>
+</html>

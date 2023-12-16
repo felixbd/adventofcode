@@ -1,0 +1,172 @@
+# adventofcode 2023 -*- mode: org; coding: utf-8; -*-
+# --------------------------------------------------------------------------------
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{oubraces}
+#+STARTUP: latexpreview
+#+OPTIONS: toc:t tex:t  # tex:verbatim num:nil
+# --------------------------------------------------------------------------------
+#+title: [[https://adventofcode.com/][adventofcode.com]]
+#+subtitle: 2023
+#+author: Felix Drees
+# --------------------------------------------------------------------------------
+
+
+* [[https://adventofcode.com/2023/day/1][Day 1]]
+
+** puzzle 1 ~Python3~
+
+#+begin_quote
+The newly-improved calibration document consists of lines of text; each line originally contained a specific calibration value that the Elves now need to recover.
+
+On each line, the calibration value can be found by combining the first digit and the last digit (in that order) to form a single two-digit number.
+
+For example:
+
+1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet
+
+In this example, the calibration values of these four lines are 12, 38, 15, and 77. Adding these together produces 142.
+
+Consider your entire calibration document. What is the sum of all of the calibration values?
+#+end_quote
+
+
+#+name: day1data
+#+BEGIN_SRC python :results value :exports code
+data = """
+1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet
+"""
+
+return data[1:]
+#+END_SRC
+
+#+RESULTS: day1data
+: 1abc2
+: pqr3stu8vwx
+: a1b2c3d4e5f
+: treb7uchet
+
+
+#+NAME: day1p1
+#+BEGIN_SRC python :results output :exports both :var data=day1data
+def day1(data: str = data) -> int:
+    """
+    sum(list(map(lambda xs: int(xs[0] + xs[-1]),
+                 map(lambda x: list(filter(lambda e: e.isdigit(), x)),
+                     data.split())
+    )))
+    """
+    return sum(
+        [int(xs[0] + xs[-1])
+         for xs in
+         [[x for x in ys if x.isdigit()]
+          for ys in
+          data.split()]]
+        )
+
+
+print(day1())
+#+END_SRC
+
+#+RESULTS: day1p1
+: 142
+
+
+
+** puzzle 2 ~Shell~
+
+#+begin_quote
+Your calculation isn't quite right. It looks like some of the digits are actually spelled out with letters: one, two, three, four, five, six, seven, eight, and nine also count as valid "digits".
+
+Equipped with this new information, you now need to find the real first and last digit on each line. For example:
+
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen
+
+In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
+
+What is the sum of all of the calibration values?
+#+end_quote
+
+#+name: day1p2cleanData
+#+BEGIN_SRC shell :results output :exports both
+echo -e "two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen" | \
+    sd one one1one       | sd two two2two       | sd three three3three | \
+    sd four four4four    | sd five five5five    | sd six six6six       | \
+    sd seven seven7seven | sd eight eight8eight | sd nine nine9nine
+#+END_SRC
+
+#+RESULTS: day1p2cleanData
+: two2two1nine9nine
+: eight8eightwo2twothree3three
+: abcone1one2three3threexyz
+: xtwo2twone1one3four4four
+: 4nine9nineeight8eightseven7seven2
+: zone1oneight8eight234
+: 7pqrstsix6sixteen
+
+
+
+**Note**:
+Why can't we just replace =one= with ~1~?
+
+#+begin_src shell :exports both
+echo "eightwo" | sd two 2 | sd eight 8
+#+end_src
+
+#+RESULTS:
+: eigh2
+
+If we do so, we will have problems with words, in which the numbers are intertwined.
+e.g., =eightwo=
+
+#+begin_comment
+html und & machen leider bisschen probleme ...
+
+#+BEGIN_LATEX
+\[ \overunderbraces{ &\br{2}{\texttt{eight}} }{ & \texttt{eigh} & \texttt{t} & \texttt{wo} }{ && \br{2}{\texttt{two}} } \]
+#+END_LATEX
+#+end_comment
+
+\[ \overbrace{ \texttt{eight}  }^8 \texttt{wo} \]  and  \[ \texttt{eigh} \underbrace{ \texttt{two} }_2 \]
+
+
+#+begin_src shell :exports both :results drawer
+echo "eightwo" | sd two two2two | sd eight eight8eight | \
+    python3 -c "import sys; xs: str = sys.stdin.read(); \
+                print(f'{xs} -> {[x for x in xs if x.isdigit()]}')"
+#+end_src
+
+#+RESULTS:
+:results:
+eight8eightwo2two
+ -> ['8', '2']
+:end:
+
+
+If we now aply the ~day1 :: String -> Int~ function form above to the normalized / cleaned  data, we will receive
+call_day1p1(data=day1p2cleanData) {{{results(=281=)}}},
+as expected.
+
+
+* TODO Day 2
+
+bal bal bal
