@@ -13,7 +13,7 @@
 # --------------------------------------------------------------------------------
 
 
-* [[https://adventofcode.com/2023/day/1][Day 1]]
+* [[https://adventofcode.com/2023/day/1][Day 1]] ~Python3 & Shell~
 
 ** puzzle 1 ~Python3~
 
@@ -167,7 +167,7 @@ call_day1p1(data=day1p2cleanData) {{{results(=281=)}}},
 as expected.
 
 
-* Day 2
+* Day 2 ~haskell~
 
 ** puzzle 1 ~haskell~
 
@@ -245,7 +245,7 @@ rv
 ähm ja ... works!
 
 
-** puzzle 2
+** puzzle 2 ~haskell~
 
 #+begin_quote
 For each game, find the minimum set of cubes that must have been present. What is the sum of the power of these sets?
