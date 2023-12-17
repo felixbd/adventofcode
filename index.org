@@ -167,6 +167,105 @@ call_day1p1(data=day1p2cleanData) {{{results(=281=)}}},
 as expected.
 
 
-* TODO Day 2
+* Day 2
 
-bal bal bal
+** puzzle 1 ~haskell~
+
+#+begin_quote
+For example, the record of a few games might look like this:
+
+- Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+- Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+- Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+- Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+- Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
+
+In game 1, three sets of cubes are revealed from the bag (and then put back again).
+The first set is 3 blue cubes and 4 red cubes;
+the second set is 1 red cube, 2 green cubes, and 6 blue cubes;
+the third set is only 2 green cubes.
+
+The Elf would first like to know which games would have been possible if the bag contained only 12 red cubes, 13 green cubes, and 14 blue cubes?
+#+end_quote
+
+#+name: saveDataFromDay2
+#+begin_src shell :results none
+echo "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green" > day2-data.txt
+#+end_src
+
+#+begin_src haskell :session day2 :results output
+import Data.Char (isDigit, isSpace)
+import Data.Text (split, pack, unpack)
+import System.IO.Unsafe (unsafePerformIO)
+
+data Color = Red | Green | Blue deriving (Show, Eq)
+
+
+-- max values
+leqMaxRead = (<= 12)
+leqMaxGreen = (<= 13)
+leqMaxBlue = (<= 14)
+
+-- dataset :: [String]
+games = lines $ unsafePerformIO (readFile "day2-data.txt")
+
+-- getGameIds :: [String] -> [Int]
+getGameIds = map (\line -> read (takeWhile isDigit $ drop 5 line) :: Int)
+
+-- getRGB4game :: String -> [(Int, Int, Int)]
+getRGBgame = map (split (==',')) . split (==';') . pack . drop 2 . dropWhile isDigit . drop 5
+
+g xs = case xs of "red" -> Red; "green" -> Green; "blue" -> Blue; otherwise -> error "fuck"
+
+f xs = ((read (takeWhile isDigit c) :: Int), g z) where c = dropWhile isSpace xs; z = dropWhile (\c -> (isDigit c) || (isSpace c)) xs
+
+-- q xs = all (==True) $ map (\case (i, Red) -> leMaxRead i; (i, Green) -> leMaxGreen i; (i, Blue) -> leMaxBlue i) xs
+
+q (v, c) = case c of Red -> leqMaxRead v; Green -> leqMaxGreen v; Blue -> leqMaxBlue v
+
+fiz = getGameIds games
+
+
+buz = map (all (==True)) $ (map $ map (all (==True)) ) $ (map $ map $ map (q . f . unpack)) (map getRGBgame games)
+
+fuu = zip fiz buz
+
+rv = sum [value | (value, predicate) <- fuu, predicate]
+rv
+#+end_src
+
+#+RESULTS:
+: 8
+
+
+ähm ja ... works!
+
+
+** puzzle 2
+
+#+begin_quote
+For each game, find the minimum set of cubes that must have been present. What is the sum of the power of these sets?
+#+end_quote
+
+
+#+begin_src haskell :session day2 :results output
+biz = (map $ map $ map (f . unpack))) (map getRGBgame games)
+newData = map concat biz
+
+findMaxRGB o@(r, g, b) (v, c) = case c of Red -> if r < v then (v, g, b) else o; Green -> if g < v then (r, v, b) else o; Blue -> if b < v then (r, g, v) else o
+
+recHelper o@(r, g, b) xs = if null xs then o else recHelper (findMaxRGB o (head xs)) (tail xs)
+
+f (a, b, c) = a * b * c
+
+-- newData
+sum $ map (f . recHelper (0, 0, 0)) newData
+#+end_src
+
+#+RESULTS:
+: <interactive>:1235:37: error: parse error on input ‘)’
+: 2286

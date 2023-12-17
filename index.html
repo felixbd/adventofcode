@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-16 Sa 20:57 -->
+<!-- 2023-12-17 So 04:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>[[https://adventofcode.com/][adventofcode.com]]</title>
@@ -58,23 +58,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd45e3f6">Day 1</a>
+<li><a href="#orgab7126b">Day 1</a>
 <ul>
-<li><a href="#org20b35a0">puzzle 1 <code>Python3</code></a></li>
-<li><a href="#org8ca3c36">puzzle 2 <code>Shell</code></a></li>
+<li><a href="#orge7d59eb">puzzle 1 <code>Python3</code></a></li>
+<li><a href="#org53515fa">puzzle 2 <code>Shell</code></a></li>
 </ul>
 </li>
-<li><a href="#org7dffd8f"><span class="todo TODO">TODO</span> Day 2</a></li>
+<li><a href="#org5a35f39">Day 2</a>
+<ul>
+<li><a href="#org66c4cb7">puzzle 1 <code>haskell</code></a></li>
+<li><a href="#org923fb1d">puzzle 2</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd45e3f6" class="outline-2">
-<h2 id="orgd45e3f6"><a href="https://adventofcode.com/2023/day/1">Day 1</a></h2>
-<div class="outline-text-2" id="text-orgd45e3f6">
+<div id="outline-container-orgab7126b" class="outline-2">
+<h2 id="orgab7126b"><a href="https://adventofcode.com/2023/day/1">Day 1</a></h2>
+<div class="outline-text-2" id="text-orgab7126b">
 </div>
-<div id="outline-container-org20b35a0" class="outline-3">
-<h3 id="org20b35a0">puzzle 1 <code>Python3</code></h3>
-<div class="outline-text-3" id="text-org20b35a0">
+<div id="outline-container-orge7d59eb" class="outline-3">
+<h3 id="orge7d59eb">puzzle 1 <code>Python3</code></h3>
+<div class="outline-text-3" id="text-orge7d59eb">
 <blockquote>
 <p>
 The newly-improved calibration document consists of lines of text; each line originally contained a specific calibration value that the Elves now need to recover.
@@ -106,7 +111,7 @@ Consider your entire calibration document. What is the sum of all of the calibra
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="org309cb63"><span style="color: #dcaeea;">data</span> = <span style="color: #98be65;">"""</span>
+<pre class="src src-python" id="org31146ad"><span style="color: #dcaeea;">data</span> = <span style="color: #98be65;">"""</span>
 <span style="color: #98be65;">1abc2</span>
 <span style="color: #98be65;">pqr3stu8vwx</span>
 <span style="color: #98be65;">a1b2c3d4e5f</span>
@@ -119,7 +124,7 @@ Consider your entire calibration document. What is the sum of all of the calibra
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgffb54ef"><span style="color: #51afef;">def</span> <span style="color: #c678dd;">day1</span>(data: <span style="color: #c678dd;">str</span> = data) -&gt; <span style="color: #c678dd;">int</span>:
+<pre class="src src-python" id="org05a61fc"><span style="color: #51afef;">def</span> <span style="color: #c678dd;">day1</span>(data: <span style="color: #c678dd;">str</span> = data) -&gt; <span style="color: #c678dd;">int</span>:
     <span style="color: #83898d;">"""</span>
 <span style="color: #83898d;">    sum(list(map(lambda xs: int(xs[0] + xs[-1]),</span>
 <span style="color: #83898d;">                 map(lambda x: list(filter(lambda e: e.isdigit(), x)),</span>
@@ -144,9 +149,9 @@ Consider your entire calibration document. What is the sum of all of the calibra
 </pre>
 </div>
 </div>
-<div id="outline-container-org8ca3c36" class="outline-3">
-<h3 id="org8ca3c36">puzzle 2 <code>Shell</code></h3>
-<div class="outline-text-3" id="text-org8ca3c36">
+<div id="outline-container-org53515fa" class="outline-3">
+<h3 id="org53515fa">puzzle 2 <code>Shell</code></h3>
+<div class="outline-text-3" id="text-org53515fa">
 <blockquote>
 <p>
 Your calculation isn&rsquo;t quite right. It looks like some of the digits are actually spelled out with letters: one, two, three, four, five, six, seven, eight, and nine also count as valid &ldquo;digits&rdquo;.
@@ -176,7 +181,7 @@ What is the sum of all of the calibration values?
 </blockquote>
 
 <div class="org-src-container">
-<pre class="src src-shell" id="org3f04581"><span style="color: #ECBE7B;">echo</span> -e <span style="color: #98be65;">"two1nine</span>
+<pre class="src src-shell" id="orgf8a3c15"><span style="color: #ECBE7B;">echo</span> -e <span style="color: #98be65;">"two1nine</span>
 <span style="color: #98be65;">eightwothree</span>
 <span style="color: #98be65;">abcone2threexyz</span>
 <span style="color: #98be65;">xtwone3four</span>
@@ -248,18 +253,126 @@ as expected.
 </div>
 </div>
 </div>
-<div id="outline-container-org7dffd8f" class="outline-2">
-<h2 id="org7dffd8f"><span class="todo TODO">TODO</span> Day 2</h2>
-<div class="outline-text-2" id="text-org7dffd8f">
+<div id="outline-container-org5a35f39" class="outline-2">
+<h2 id="org5a35f39">Day 2</h2>
+<div class="outline-text-2" id="text-org5a35f39">
+</div>
+<div id="outline-container-org66c4cb7" class="outline-3">
+<h3 id="org66c4cb7">puzzle 1 <code>haskell</code></h3>
+<div class="outline-text-3" id="text-org66c4cb7">
+<blockquote>
 <p>
-bal bal bal
+For example, the record of a few games might look like this:
 </p>
+
+<ul class="org-ul">
+<li>Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green</li>
+<li>Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue</li>
+<li>Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red</li>
+<li>Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red</li>
+<li>Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green</li>
+</ul>
+
+<p>
+In game 1, three sets of cubes are revealed from the bag (and then put back again).
+The first set is 3 blue cubes and 4 red cubes;
+the second set is 1 red cube, 2 green cubes, and 6 blue cubes;
+the third set is only 2 green cubes.
+</p>
+
+<p>
+The Elf would first like to know which games would have been possible if the bag contained only 12 red cubes, 13 green cubes, and 14 blue cubes?
+</p>
+</blockquote>
+
+<div class="org-src-container">
+<pre class="src src-shell" id="org677030d"><span style="color: #ECBE7B;">echo</span> <span style="color: #98be65;">"Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green</span>
+<span style="color: #98be65;">Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue</span>
+<span style="color: #98be65;">Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red</span>
+<span style="color: #98be65;">Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red</span>
+<span style="color: #98be65;">Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"</span> &gt; day2-data.txt
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #51afef;">import</span> <span style="color: #ECBE7B;">Data.Char</span> (isDigit, isSpace)
+<span style="color: #51afef;">import</span> <span style="color: #ECBE7B;">Data.Text</span> (split, pack, unpack)
+<span style="color: #51afef;">import</span> <span style="color: #ECBE7B;">System.IO.Unsafe</span> (unsafePerformIO)
+
+<span style="color: #51afef;">data</span> <span style="color: #ECBE7B;">Color</span> <span style="color: #dcaeea;">=</span> <span style="color: #ECBE7B;">Red</span> <span style="color: #dcaeea;">|</span> <span style="color: #ECBE7B;">Green</span> <span style="color: #dcaeea;">|</span> <span style="color: #ECBE7B;">Blue</span> <span style="color: #51afef;">deriving</span> (<span style="color: #ECBE7B;">Show</span>, <span style="color: #ECBE7B;">Eq</span>)
+
+
+<span style="color: #5B6268;">-- </span><span style="color: #5B6268;">max values</span>
+<span style="color: #c678dd;">leqMaxRead</span> <span style="color: #dcaeea;">=</span> (<span style="color: #dcaeea;">&lt;=</span> <span style="color: #da8548; font-weight: bold;">12</span>)
+<span style="color: #c678dd;">leqMaxGreen</span> <span style="color: #dcaeea;">=</span> (<span style="color: #dcaeea;">&lt;=</span> <span style="color: #da8548; font-weight: bold;">13</span>)
+<span style="color: #c678dd;">leqMaxBlue</span> <span style="color: #dcaeea;">=</span> (<span style="color: #dcaeea;">&lt;=</span> <span style="color: #da8548; font-weight: bold;">14</span>)
+
+<span style="color: #5B6268;">-- </span><span style="color: #5B6268;">dataset :: [String]</span>
+<span style="color: #c678dd;">games</span> <span style="color: #dcaeea;">=</span> lines <span style="color: #dcaeea;">$</span> unsafePerformIO (readFile <span style="color: #98be65;">"day2-data.txt"</span>)
+
+<span style="color: #5B6268;">-- </span><span style="color: #5B6268;">getGameIds :: [String] -&gt; [Int]</span>
+<span style="color: #c678dd;">getGameIds</span> <span style="color: #dcaeea;">=</span> map (<span style="color: #dcaeea;">\</span>line <span style="color: #dcaeea;">-&gt;</span> read (takeWhile isDigit <span style="color: #dcaeea;">$</span> drop <span style="color: #da8548; font-weight: bold;">5</span> line) <span style="color: #dcaeea;">::</span> <span style="color: #ECBE7B;">Int</span>)
+
+<span style="color: #5B6268;">-- </span><span style="color: #5B6268;">getRGB4game :: String -&gt; [(Int, Int, Int)]</span>
+<span style="color: #c678dd;">getRGBgame</span> <span style="color: #dcaeea;">=</span> map (split (<span style="color: #dcaeea;">==</span><span style="color: #98be65;">','</span>)) <span style="color: #dcaeea;">.</span> split (<span style="color: #dcaeea;">==</span><span style="color: #98be65;">';'</span>) <span style="color: #dcaeea;">.</span> pack <span style="color: #dcaeea;">.</span> drop <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #dcaeea;">.</span> dropWhile isDigit <span style="color: #dcaeea;">.</span> drop <span style="color: #da8548; font-weight: bold;">5</span>
+
+<span style="color: #c678dd;">g</span> xs <span style="color: #dcaeea;">=</span> <span style="color: #51afef;">case</span> xs <span style="color: #51afef;">of</span> <span style="color: #98be65;">"red"</span> <span style="color: #dcaeea;">-&gt;</span> <span style="color: #ECBE7B;">Red</span>; <span style="color: #98be65;">"green"</span> <span style="color: #dcaeea;">-&gt;</span> <span style="color: #ECBE7B;">Green</span>; <span style="color: #98be65;">"blue"</span> <span style="color: #dcaeea;">-&gt;</span> <span style="color: #ECBE7B;">Blue</span>; otherwise <span style="color: #dcaeea;">-&gt;</span> error <span style="color: #98be65;">"fuck"</span>
+
+<span style="color: #c678dd;">f</span> xs <span style="color: #dcaeea;">=</span> ((read (takeWhile isDigit c) <span style="color: #dcaeea;">::</span> <span style="color: #ECBE7B;">Int</span>), g z) <span style="color: #51afef;">where</span> c <span style="color: #dcaeea;">=</span> dropWhile isSpace xs; z <span style="color: #dcaeea;">=</span> dropWhile (<span style="color: #dcaeea;">\</span>c <span style="color: #dcaeea;">-&gt;</span> (isDigit c) <span style="color: #dcaeea;">||</span> (isSpace c)) xs
+
+<span style="color: #5B6268;">-- </span><span style="color: #5B6268;">q xs = all (==True) $ map (\case (i, Red) -&gt; leMaxRead i; (i, Green) -&gt; leMaxGreen i; (i, Blue) -&gt; leMaxBlue i) xs</span>
+
+<span style="color: #c678dd;">q</span> (v, c) <span style="color: #dcaeea;">=</span> <span style="color: #51afef;">case</span> c <span style="color: #51afef;">of</span> <span style="color: #ECBE7B;">Red</span> <span style="color: #dcaeea;">-&gt;</span> leqMaxRead v; <span style="color: #ECBE7B;">Green</span> <span style="color: #dcaeea;">-&gt;</span> leqMaxGreen v; <span style="color: #ECBE7B;">Blue</span> <span style="color: #dcaeea;">-&gt;</span> leqMaxBlue v
+
+<span style="color: #c678dd;">fiz</span> <span style="color: #dcaeea;">=</span> getGameIds games
+
+
+<span style="color: #c678dd;">buz</span> <span style="color: #dcaeea;">=</span> map (all (<span style="color: #dcaeea;">==</span><span style="color: #ECBE7B;">True</span>)) <span style="color: #dcaeea;">$</span> (map <span style="color: #dcaeea;">$</span> map (all (<span style="color: #dcaeea;">==</span><span style="color: #ECBE7B;">True</span>)) ) <span style="color: #dcaeea;">$</span> (map <span style="color: #dcaeea;">$</span> map <span style="color: #dcaeea;">$</span> map (q <span style="color: #dcaeea;">.</span> f <span style="color: #dcaeea;">.</span> unpack)) (map getRGBgame games)
+
+<span style="color: #c678dd;">fuu</span> <span style="color: #dcaeea;">=</span> zip fiz buz
+
+<span style="color: #c678dd;">rv</span> <span style="color: #dcaeea;">=</span> sum [value <span style="color: #dcaeea;">|</span> (value, predicate) <span style="color: #dcaeea;">&lt;-</span> fuu, predicate]
+rv
+</pre>
+</div>
+
+
+<p>
+ähm ja &#x2026; works!
+</p>
+</div>
+</div>
+<div id="outline-container-org923fb1d" class="outline-3">
+<h3 id="org923fb1d">puzzle 2</h3>
+<div class="outline-text-3" id="text-org923fb1d">
+<blockquote>
+<p>
+For each game, find the minimum set of cubes that must have been present. What is the sum of the power of these sets?
+</p>
+</blockquote>
+
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #c678dd;">biz</span> <span style="color: #dcaeea;">=</span> (map <span style="color: #dcaeea;">$</span> map <span style="color: #dcaeea;">$</span> map (f <span style="color: #dcaeea;">.</span> unpack))) (map getRGBgame games)
+<span style="color: #c678dd;">newData</span> <span style="color: #dcaeea;">=</span> map concat biz
+
+<span style="color: #c678dd;">findMaxRGB</span> o<span style="color: #dcaeea;">@</span>(r, g, b) (v, c) <span style="color: #dcaeea;">=</span> <span style="color: #51afef;">case</span> c <span style="color: #51afef;">of</span> <span style="color: #ECBE7B;">Red</span> <span style="color: #dcaeea;">-&gt;</span> <span style="color: #51afef;">if</span> r <span style="color: #dcaeea;">&lt;</span> v <span style="color: #51afef;">then</span> (v, g, b) <span style="color: #51afef;">else</span> o; <span style="color: #ECBE7B;">Green</span> <span style="color: #dcaeea;">-&gt;</span> <span style="color: #51afef;">if</span> g <span style="color: #dcaeea;">&lt;</span> v <span style="color: #51afef;">then</span> (r, v, b) <span style="color: #51afef;">else</span> o; <span style="color: #ECBE7B;">Blue</span> <span style="color: #dcaeea;">-&gt;</span> <span style="color: #51afef;">if</span> b <span style="color: #dcaeea;">&lt;</span> v <span style="color: #51afef;">then</span> (r, g, v) <span style="color: #51afef;">else</span> o
+
+<span style="color: #c678dd;">recHelper</span> o<span style="color: #dcaeea;">@</span>(r, g, b) xs <span style="color: #dcaeea;">=</span> <span style="color: #51afef;">if</span> null xs <span style="color: #51afef;">then</span> o <span style="color: #51afef;">else</span> recHelper (findMaxRGB o (head xs)) (tail xs)
+
+<span style="color: #c678dd;">f</span> (a, b, c) <span style="color: #dcaeea;">=</span> a <span style="color: #dcaeea;">*</span> b <span style="color: #dcaeea;">*</span> c
+
+<span style="color: #5B6268;">-- </span><span style="color: #5B6268;">newData</span>
+sum <span style="color: #c678dd;">$</span> map (f <span style="color: #dcaeea;">.</span> recHelper (<span style="color: #da8548; font-weight: bold;">0</span>, <span style="color: #da8548; font-weight: bold;">0</span>, <span style="color: #da8548; font-weight: bold;">0</span>)) newData
+</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Felix Drees</p>
-<p class="date">Created: 2023-12-16 Sa 20:57</p>
+<p class="date">Created: 2023-12-17 So 04:55</p>
 </div>
 </body>
 </html>
