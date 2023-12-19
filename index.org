@@ -197,52 +197,37 @@ Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green" > day2-data.txt
 #+end_src
 
-#+begin_src haskell :session day2 :results output
+
+#+begin_src haskell :session day2 :results output :exports both
 import Data.Char (isDigit, isSpace)
 import Data.Text (split, pack, unpack)
 import System.IO.Unsafe (unsafePerformIO)
 
 data Color = Red | Green | Blue deriving (Show, Eq)
 
-
--- max values
 leqMaxRead = (<= 12)
 leqMaxGreen = (<= 13)
 leqMaxBlue = (<= 14)
 
--- dataset :: [String]
 games = lines $ unsafePerformIO (readFile "day2-data.txt")
 
--- getGameIds :: [String] -> [Int]
 getGameIds = map (\line -> read (takeWhile isDigit $ drop 5 line) :: Int)
 
--- getRGB4game :: String -> [(Int, Int, Int)]
-getRGBgame = map (split (==',')) . split (==';') . pack . drop 2 . dropWhile isDigit . drop 5
+splitGames = map (split (==',')) . split (==';') . pack . drop 2 . dropWhile isDigit . drop 5
 
 g xs = case xs of "red" -> Red; "green" -> Green; "blue" -> Blue; otherwise -> error "fuck"
 
 f xs = ((read (takeWhile isDigit c) :: Int), g z) where c = dropWhile isSpace xs; z = dropWhile (\c -> (isDigit c) || (isSpace c)) xs
 
--- q xs = all (==True) $ map (\case (i, Red) -> leMaxRead i; (i, Green) -> leMaxGreen i; (i, Blue) -> leMaxBlue i) xs
-
 q (v, c) = case c of Red -> leqMaxRead v; Green -> leqMaxGreen v; Blue -> leqMaxBlue v
 
-fiz = getGameIds games
+fuu = zip (getGameIds games) (map (all (==True)) $ (map $ map (all (==True)) ) $ (map $ map $ map (q . f . unpack)) (map splitGames games))
 
-
-buz = map (all (==True)) $ (map $ map (all (==True)) ) $ (map $ map $ map (q . f . unpack)) (map getRGBgame games)
-
-fuu = zip fiz buz
-
-rv = sum [value | (value, predicate) <- fuu, predicate]
-rv
+sum [value | (value, predicate) <- fuu, predicate]
 #+end_src
 
 #+RESULTS:
 : 8
-
-
-ähm ja ... works!
 
 
 ** puzzle 2 ~haskell~
@@ -252,20 +237,90 @@ For each game, find the minimum set of cubes that must have been present. What i
 #+end_quote
 
 
-#+begin_src haskell :session day2 :results output
-biz = (map $ map $ map (f . unpack))) (map getRGBgame games)
+#+begin_src haskell :session day2 :results output :exports both
+biz = [[ map (f . unpack) p | p <- g] | g <- map splitGames games]
 newData = map concat biz
 
 findMaxRGB o@(r, g, b) (v, c) = case c of Red -> if r < v then (v, g, b) else o; Green -> if g < v then (r, v, b) else o; Blue -> if b < v then (r, g, v) else o
 
 recHelper o@(r, g, b) xs = if null xs then o else recHelper (findMaxRGB o (head xs)) (tail xs)
 
-f (a, b, c) = a * b * c
-
--- newData
-sum $ map (f . recHelper (0, 0, 0)) newData
+sum $ map ((\(a, b, c) -> a * b * c) . recHelper (0, 0, 0)) newData
 #+end_src
 
 #+RESULTS:
-: <interactive>:1235:37: error: parse error on input ‘)’
 : 2286
+
+
+* Day 3
+
+** puzzle 1
+
+#+begin_quote
+The engineer explains that an engine part seems to be missing from the engine, but nobody can figure out which one. If you can add up all the part numbers in the engine schematic, it should be easy to work out which part is missing.
+
+The engine schematic (your puzzle input) consists of a visual representation of the engine. There are lots of numbers and symbols you don't really understand, but apparently any number adjacent to a symbol, even diagonally, is a "part number" and should be included in your sum. (Periods (.) do not count as a symbol.)
+
+Here is an example engine schematic:
+#+end_quote
+
+#+begin_src python :exports code :results none :session day3
+data = """
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598.."""
+
+data = data[1:]
+#+end_src
+
+#+begin_quote
+What is the sum of all of the part numbers in the engine schematic?
+#+end_quote
+
+#+name: day3p1
+#+begin_src python :exports bothe :results output :session day3
+from itertools import chain
+
+
+predicate = lambda c: not c.isdigit() and c != '.'
+
+symbol_coordinates = list(chain.from_iterable(
+    [[(ln, pos) for pos, c in enumerate(line) if predicate(c)]
+     for ln, line in enumerate(data.split())]
+))
+
+print(f"{symbol_coordinates = }")
+
+digit_coordinates = list(chain.from_iterable(
+    [[(ln, i) for i, c in enumerate(line) if c.isdigit()]
+     for ln, line in enumerate(data.split())]
+))
+
+print(f"{digit_coordinates = }")
+
+# current_y = digit_coordinates[0][0]
+# current_x = digit_coordinates[0][1]
+# temp = 0
+# new_vec = []
+# for e in digit_coordinates[1:]:
+
+a = [b for a, b in digit_coordinates]
+
+ofset = list(map(lambda x: len(x) + 1,
+             ''.join(map(lambda x: str(int(x[0] + 1 == x[1])),
+                         zip(a, a[1:]))).split('0')
+        ))
+
+# TODO if num lenght != 1 add ofset
+#+end_src
+
+#+RESULTS: day3p1
+: symbol_coordinates = [(1, 3), (3, 6), (4, 3), (5, 5), (8, 3), (8, 5)]
+: digit_coordinates = [(0, 0), (0, 1), (0, 2), (0, 5), (0, 6), (0, 7), (2, 2), (2, 3), (2, 6), (2, 7), (2, 8), (4, 0), (4, 1), (4, 2), (5, 7), (5, 8), (6, 2), (6, 3), (6, 4), (7, 6), (7, 7), (7, 8), (9, 1), (9, 2), (9, 3), (9, 5), (9, 6), (9, 7)]
